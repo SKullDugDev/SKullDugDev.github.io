@@ -5,12 +5,14 @@
   "main": "wrightapp.js",
   "scripts": {
     "start": "node -r dotenv/config server",
-    "dev": "nodemon -r dotenv/config server"
+    "dev": "nodemon -r dotenv/config server",
+    "feed": "node -r dotenv/config instafeed"
   },
   "author": "SKDev",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
     "express": "^4.17.1"
   },
   "devDependencies": {
