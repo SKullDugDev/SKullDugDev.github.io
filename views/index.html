@@ -57,7 +57,10 @@
       </div>
 
       <div id="instafeed">
-        <%- message %>
+        <% for (let key in data) { %>
+          <a href="<%= data[key].permalink %>"><img title="<%= data[key].caption %>" alt="<%= data[key].caption %>"
+              src="<%= data[key].newImagePath %>" data-id="<%= data[key].id %> " /></a>
+          <% } %>
       </div>
 
 

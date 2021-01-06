@@ -5,35 +5,70 @@ const axios = require("axios");
 const fs = require("fs");
 const path = require("path");
 const https = require("https");
-
+const { Console } = require("console");
 
 router.get("/", async (req, res) => {
+  // Make the API Call
   const apiResponse = await axios.get("http://localhost:5000/api");
-  // retu
-  const linkInfo = await Promise.all(
-    Object.entries(apiResponse.data).map(async ([key, apiResponse]) => {
+  // return the info for the images
+  const imageInfo = await Promise.all(
+    Object.entries(apiResponse.data).map(async ([key, apiResponseData]) => {
       const mediaUrl = await axios({
         method: "get",
-        url: apiResponse.media_url,
+        url: apiResponseData.media_url,
         responseType: "stream",
       });
 
-      const newImagePath = `/public/assets/images/igresults/${apiResponse.id}.jpg`;
+      const newImagePath = `/public/assets/images/igresults/${apiResponseData.id}.jpg`;
 
-      const permalink = apiResponse.permalink;
-      const caption = apiResponse.caption;
+      const permalink = apiResponseData.permalink;
+      const caption = apiResponseData.caption;
+      const id = apiResponseData.id;
       const imageStream = fs.createWriteStream(newImagePath);
 
       mediaUrl.data.pipe(imageStream);
-      console.log("breakpoint");
 
-      return `<a href="${permalink}"><img title="${caption}" alt="${caption}" src="${newImagePath}" /></a>`;
+      return [permalink, caption, newImagePath, id];
     })
   );
-  const linkString = linkInfo.join("\n");
-  res.render("index.html", { message: linkString });
-  console.log(linkString);
-  console.log(linkInfo);
+
+  const newImageInfo = await Promise.all(
+    imageInfo.map(function (infoSet) {
+      const permalink = infoSet[0];
+      const caption = infoSet[1];
+      const newImagePath = infoSet[2];
+      const id = infoSet[3];
+      const imageInfoPacket = {
+        permalink: permalink,
+        newImagePath: newImagePath,
+        caption: caption,
+        id: id,
+      };
+      return imageInfoPacket;
+    })
+  );
+
+  /* 
+
+
+
+  let i = 0
+  linkInfo.forEach(function(infoSet){
+    const arrayKey = i++
+    const permalinkArray =[]
+    const newImagePathArray = []
+    const captionArray
+    const idArray = []
+    permalinkArray[arrayKey] = infoSet[0]
+    newImagePathArray[arrayKey] = infoSet[1]
+    captionArray[arrayKey] = infoSet[2]
+    idArray[arrayKey] = infoSet[3]
+  }) */
+
+  console.log(newImageInfo);
+  const linkString = imageInfo.join("\n");
+  // res.send("Hello");
+  res.render("index.html", { data: newImageInfo });
 });
 
 exports.router = router;

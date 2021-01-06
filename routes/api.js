@@ -9,6 +9,7 @@ router.get("/", async function (req, res) {
   try {
     const gramResults = await instafeed.fetchGramResults();
     if (gramResults === undefined) {
+      console.log('gramResults is undefined')
       res.send("Sorry, but we couldn't find anything here");
       return;
     }
