@@ -92,7 +92,7 @@ header>nav>a {
 }
 
 .watercolorImage.img-3::before {
-    background-image: url(resources/images/watercolor-4629348.png);
+    background-image: url(/public/assets/images/watercolor-4629348.png);
     animation-delay: var(--animation-delay2);
 }
 
