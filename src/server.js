@@ -6,10 +6,10 @@ const path = require("path");
 const fs = require("fs");
 const axios = require("axios");
 const bodyParser = require("body-parser");
-const apiRoutes = require("../routes/api.js");
+// const apiRoutes = require("../routes/api.js");
 const indexRoutes = require("../routes/index");
 const assetRoutes = require("../routes/assets");
-const serverController = require("./controllers/serverController");
+const Instafeed = require("./models/Instafeed");
 
 // Init express and create server instance
 const server = express();
@@ -38,10 +38,14 @@ server.engine("html", require("ejs").renderFile);
 server.use("/", indexRoutes.router);
 
 // API
-server.use("/api", apiRoutes.router);
+// server.use("/api", apiRoutes.router);
 
 // Assets
 server.use("/public/assets", assetRoutes.router);
 
 // Server is listening on port
-server.listen(port, serverController.onServerStart);
+server.listen(port, async () => {
+  console.log(`Server started on port ${port}`);
+  const instafeedResults = Instafeed.instafeedCall();
+  server.set("instafeedResults", instafeedResults);
+});

@@ -1,7 +1,7 @@
 "use strict";
 
 const instafeed = require("./Instafeed");
-
+/* 
 exports.instagramCall = async function (req, res) {
   console.log("API beginning work");
   try {
@@ -18,3 +18,4 @@ exports.instagramCall = async function (req, res) {
     return;
   }
 };
+ */

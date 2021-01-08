@@ -10,7 +10,7 @@ const igMediaTypes = "media_url, permalink, id, caption";
 const igReturnLimit = 3;
 
 exports.instafeedCall = async function (req, res) {
-  console.log("Calling Instafeed Model to Action");
+  console.log("Instafeed: Trying Call to Action");
   try {
     console.log("Instafeed: Fetching Instagram Results");
     const gramResults = await fetchGramResults();
@@ -28,7 +28,6 @@ exports.instafeedCall = async function (req, res) {
     const gramResults = [];
     return gramResults;
   }
-  return gramResults;
 };
 
 async function fetchGramResults() {
