@@ -4,15 +4,16 @@
   "description": "",
   "main": "wrightapp.js",
   "scripts": {
-    "start": "node -r dotenv/config server",
-    "dev": "nodemon -r dotenv/config server",
-    "feed": "node -r dotenv/config instafeed"
+    "start": "node -r dotenv/config src/server",
+    "dev": "nodemon -r dotenv/config src/server",
+    "feed": "node -r dotenv/config src/models/instafeed"
   },
   "author": "SKDev",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
+    "cron": "^1.8.2",
     "ejs": "^3.1.5",
     "express": "^4.17.1"
   },
