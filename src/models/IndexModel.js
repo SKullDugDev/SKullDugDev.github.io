@@ -3,50 +3,65 @@
 const axios = require("axios");
 const fs = require("fs");
 const path = require("path");
-const serverController = require("../controllers/serverCaptain");
 
 exports.populateInstaDiv = async (req, res, instafeedResults) => {
-  // return the info for the images
+  // Promise.all() b/c it returns an array of promises and each asyn resolution will produce a promise
+
   const imageInfo = await Promise.all(
+    // Object.entries because we can get each promise object by key, e.g [0]={}
+
     Object.entries(instafeedResults).map(async ([key, apiResponseData]) => {
-      // after making the API Call store the information from it
+      // for each key where we get apiResponseData, store the object properties as follows
+
       const permalink = apiResponseData.permalink;
       const caption = apiResponseData.caption;
       const id = apiResponseData.id;
       const newImagePath = `/public/assets/images/igresults/${apiResponseData.id}.jpg`;
+
       //check to see if we already have the images locally
+
       function checkImageExistence() {
         // Asynchronously check the file's existence without opening it
 
         fs.access(
           path.resolve(__dirname, `../../${newImagePath}`),
           async (err) => {
-            // if it doesn't exist
+            // Start on error condition because if it fails it will error, else it won't
+
             if (err) {
-              console.log("These files don't exist already");
-              console.log("Let's fetch them");
+              console.log(
+                "indexModel: Images don't exist...prepare for download..."
+              );
+
               // fetch the image
+
               const mediaUrl = await axios({
                 method: "get",
                 url: apiResponseData.media_url,
                 responseType: "stream",
               });
-              console.log("Images fetched");
+              console.log("indexModel: Images ready for download...");
+
               // create a writable stream
+
               const imageStream = fs.createWriteStream(newImagePath);
-              console.log("Creating a writable stream");
-              //pipe the stream
+
+              // pipe the stream
+
               mediaUrl.data.pipe(imageStream);
-              console.log("Stream downloaded locally");
+
               // return the array
+
               return [permalink, caption, newImagePath, id];
             }
-            console.log("This file definitely already exists in the system");
+            console.log("indexModel: Images already exist");
             return [permalink, caption, newImagePath, id];
           }
         );
         return [permalink, caption, newImagePath, id];
       }
+      // run the existence check and return the result
+      
       return checkImageExistence();
     })
   );
