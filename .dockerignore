@@ -1,0 +1,7 @@
+node_modules
+tokens.json
+scratch
+.env
+docker-compose.yml
+**/dev
+**/igresults

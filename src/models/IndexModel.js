@@ -16,15 +16,14 @@ exports.populateInstaDiv = async (req, res, instafeedResults) => {
       const permalink = apiResponseData.permalink;
       const caption = apiResponseData.caption;
       const id = apiResponseData.id;
-      const newImagePath = `/public/assets/images/igresults/${apiResponseData.id}.jpg`;
+      const newImagePath = `/assets/images/igresults/${apiResponseData.id}.jpg`;
 
       //check to see if we already have the images locally
 
       function checkImageExistence() {
         // Asynchronously check the file's existence without opening it
-
         fs.access(
-          path.resolve(__dirname, `../../${newImagePath}`),
+          path.resolve(__dirname, `../../public/${newImagePath}`),
           async (err) => {
             // Start on error condition because if it fails it will error, else it won't
 
@@ -61,7 +60,7 @@ exports.populateInstaDiv = async (req, res, instafeedResults) => {
         return [permalink, caption, newImagePath, id];
       }
       // run the existence check and return the result
-      
+
       return checkImageExistence();
     })
   );

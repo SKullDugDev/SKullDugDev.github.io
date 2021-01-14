@@ -1,6 +1,4 @@
 "use strict";
-const express = require("express");
-const app = express();
 const indexModel = require("../models/IndexModel");
 
 exports.renderHomePage = async (req, res) => {

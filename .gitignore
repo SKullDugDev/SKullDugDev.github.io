@@ -4,3 +4,4 @@ node_modules
 tokens.json
 scratch
 \igresults
+docker-compose.yml

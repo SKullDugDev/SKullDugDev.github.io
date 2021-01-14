@@ -6,34 +6,46 @@
   --animation-delay3: 3s;
 }
 
-/* Miscellanious Settings */
-
-article,
-aside,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-main,
-nav,
-section {
-  display: block;
-}
-
 body {
-  background-image: url(/public/assets/images/canvas_bg2.png);
-  background-repeat: no-repeat;
-  background-size: cover;
-  color: #351313;
+  color: #363535;
   margin: 0;
-  font-family: "Lato", sans-serif;
+  padding: 0;
+  width: 100%;
+  position: relative;
 }
 
-img {
-  width: 100%;
-  height: auto;
-  vertical-align: middle;
+body::before {
+  display: block;
+  content: "";
+  position: absolute;
+  z-index: -9999;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: url(../images/canvas_bg2.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+/* Splatter backgrounds */
+
+.splatterBackground {
+  position: relative;
+  background-color: transparent;
+}
+
+.splatterBackground::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url(../images/paint-strokes-blue.png);
 }
 
 /* Nav Bar */
@@ -47,22 +59,25 @@ header {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  flex-wrap: nowrap;
 }
 
 header > nav {
   display: flex;
   justify-content: center;
   margin: 0 2rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  align-items: center;
 }
 
 header > nav > a {
   padding: 2rem;
   text-decoration: none;
-  color: black;
+  color: #353535;
   font-weight: 700;
   text-transform: uppercase;
   font-size: 2rem;
+  font-family: "Lato", sans-serif;
 }
 
 .watercolorImage {
@@ -91,28 +106,43 @@ header > nav > a {
   opacity: 0;
 }
 
+/* Pause on Hover */
+.watercolorImage::before:hover {
+  animation-play-state: paused;
+}
+
+.watercolorImage:hover::before {
+  animation-play-state: paused;
+}
+
 .watercolorImage.img-1::before {
-  background-image: url(/public/assets/images/watercolour-4116932.png);
+  background-image: url(../images/watercolour-4116932.png);
 }
 
 .watercolorImage.img-2::before {
-  background-image: url(/public/assets/images/splatt2.png);
+  background-image: url(../images/splatt2.png);
   animation-delay: var(--animation-delay);
 }
 
 .watercolorImage.img-3::before {
-  background-image: url(/public/assets/images/watercolor-4629348.png);
+  background-image: url(../images/watercolor-4629348.png);
   animation-delay: var(--animation-delay2);
 }
 
 .watercolorImage.img-4::before {
-  background-image: url(/public/assets/images/watercolour-4116889.png);
+  background-image: url(../images/watercolour-4116889.png);
   animation-delay: var(--animation-delay3);
 }
 
 .stuck {
   background-color: #fefefe;
   box-shadow: 0 7px 4px -3px rgba(0, 0, 0, 0.25);
+}
+
+/* Hamburger */
+.menu {
+  padding: 2rem;
+  display: none;
 }
 
 /* Bleeding animation */
@@ -138,7 +168,7 @@ header > nav > a {
 /* Hero Text */
 
 .heroText {
-  /* background-image: url(/public/assets/images/usgs-epmiRmGAyv8-unsplash.jpg);
+  /* background-image: url(../images/usgs-epmiRmGAyv8-unsplash.jpg);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -146,10 +176,9 @@ header > nav > a {
     -webkit-background-clip: text;
     color: transparent; */
   text-align: center;
-  color: #000000;
-  font-family: Lateef, cursive;
-  font-size: 2rem;
-  font-weight: 700;
+  color: #363535;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.8rem;
   font-style: normal;
   /*     margin-top: 5vh;
     margin-bottom: 20vh; */
@@ -167,7 +196,6 @@ header > nav > a {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-
   top: 0;
   right: 0;
   bottom: 0;
@@ -237,7 +265,7 @@ header > nav > a {
   background-color: transparent;
   position: relative;
   z-index: 10;
-  margin-bottom: 10rem;
+  /* margin-bottom: 10rem; */
 }
 
 .dot {
@@ -270,7 +298,23 @@ header > nav > a {
   height: auto;
   margin-left: auto;
   margin-right: auto;
+  position: relative;
 }
+/* 
+#instafeed::before {
+  position: absolute;
+  content: "";
+  display: block;
+  background-image: url(../images/Color-Splash-8.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  top: 0;
+  right: -5rem;
+  bottom: 0;
+  left: -5rem;
+  z-index: -1;
+  background-position: center center;
+} */
 
 #instafeed a {
   margin-right: 1%;
@@ -311,6 +355,7 @@ header > nav > a {
   height: 100%;
   display: flex;
   perspective: 75rem;
+  background-image: url(../images/canvas_bg2.png);
 }
 
 .bookPage {
@@ -341,7 +386,6 @@ header > nav > a {
   width: 100%;
   height: 100%;
   transform: rotateY(0deg) translateZ(1px);
-  background-image: url(/public/assets/images/canvas_bg2.png);
 }
 
 .pageContent {
@@ -399,27 +443,6 @@ header > nav > a {
   letter-spacing: 0;
 }
 
-/* Splatter backgrounds */
-
-.splatterBackground {
-  position: relative;
-  background-color: transparent;
-}
-
-.splatterBackground::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: -1;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-image: url(/public/assets/images/Color-Splash-7.png);
-  padding-bottom: 50%;
-}
-
 .bookBackground {
   position: relative;
   background-color: transparent;
@@ -435,7 +458,7 @@ header > nav > a {
   z-index: -1;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url(/public/assets/images/Color-Splash-12.png);
+  background-image: url(../images/Color-Splash-12.png);
 }
 
 /* About me dropcap */
@@ -482,7 +505,7 @@ header > nav > a {
   bottom: 0;
   left: 0;
   z-index: -1;
-  background-image: url(/public/assets/images/06.png);
+  background-image: url(../images/06.png);
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -495,6 +518,7 @@ header > nav > a {
   max-width: 30%;
   padding-left: 1em;
   padding-right: 1em;
+  color: #29292b;
   /* background-image: url(https://i.ibb.co/j4zLqrs/canvas-bg2.png); */
   /* box-shadow: 0 10px 7px -5px rgba(0, 0, 0, 0.5); */
 }
@@ -585,10 +609,12 @@ header > nav > a {
 
 .cardHolder {
   width: 100%;
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  margin-top: 5%;
 }
 
 .cardDescription {
@@ -618,8 +644,20 @@ header > nav > a {
   padding: 1em 2em;
   position: Absolute;
   top: 0px;
-  background-image: url(/public/assets/images/watercolour-1578077.jpg);
+  background-image: url(../images/watercolour-1578077.jpg);
   background-size: cover;
   background-position: 0% 30%;
   background-repeat: no-repeat;
+}
+
+.cardSlot {
+  width: 56em;
+  height: 36em;
+  float: right;
+  display: block;
+}
+
+.rightCard {
+  display: flex;
+  justify-content: right;
 }

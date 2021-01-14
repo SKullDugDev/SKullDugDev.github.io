@@ -7,16 +7,20 @@ const path = require("path");
 const bodyParser = require("body-parser");
 
 // Initialize Routers
-const indexRoutes = require("../routes/index");
-const assetRoutes = require("../routes/assets");
-const serverController = require("./controllers/serverController");
+const indexRoutes = require("./routes/index");
+const bookRoutes = require('./routes/books')
+const aboutRoutes = require('./routes/about')
+const contactRoutes = require('./routes/contact')
 
-// Initialize Server and export instance
+
+
+// Initialize Server controller and export instance
+const serverController = require("./controllers/serverController");
 const server = express();
 exports.server = server;
 
 // Set port
-const port = process.env.PORT || 5000;
+const port = 5000;
 
 // To parse json data
 server.use(bodyParser.json());
@@ -24,11 +28,8 @@ server.use(bodyParser.json());
 // To parse URL encoded data
 server.use(bodyParser.urlencoded({ extended: false }));
 
-// Set static folder
-server.use(express.static(path.join(__dirname, "../public")));
-
 // View Engine Setup
-server.set("views", path.join(__dirname, "../views"));
+server.set("views", path.join(__dirname, "./views"));
 server.set("view engine", "ejs");
 // render HTML files
 server.engine("html", require("ejs").renderFile);
@@ -38,8 +39,14 @@ server.engine("html", require("ejs").renderFile);
 // Index
 server.use("/", indexRoutes.router);
 
-// Assets
-server.use("/public/assets", assetRoutes.router);
+// Books
+server.use("/books", bookRoutes.router);
+
+// William/About
+server.use("/about", aboutRoutes.router);
+
+// Contact
+server.use("/contact", contactRoutes.router);
 
 // Server is listening on port
 server.listen(port, serverController.onServerStart(server, port));
