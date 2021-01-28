@@ -2,6 +2,15 @@ node_modules
 tokens.json
 scratch
 .env
-docker-compose.yml
+docker-compose*.yml
 **/dev
 **/igresults
+**/old
+.gitignore
+.dockerignore
+Dockerfile
+.git
+.env
+*.md
+public
+nginx

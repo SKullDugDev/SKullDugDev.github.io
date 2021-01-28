@@ -1,18 +1,15 @@
 "use strict";
 
 //Modules
-require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 
 // Initialize Routers
 const indexRoutes = require("./routes/index");
-const bookRoutes = require('./routes/books')
-const aboutRoutes = require('./routes/about')
-const contactRoutes = require('./routes/contact')
-
-
+const bookRoutes = require("./routes/books");
+const aboutRoutes = require("./routes/about");
+const contactRoutes = require("./routes/contact");
 
 // Initialize Server controller and export instance
 const serverController = require("./controllers/serverController");
@@ -20,7 +17,7 @@ const server = express();
 exports.server = server;
 
 // Set port
-const port = 5000;
+const port = 8080;
 
 // To parse json data
 server.use(bodyParser.json());

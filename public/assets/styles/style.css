@@ -11,41 +11,29 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
+  height: 100vh;
   position: relative;
+  background-image: url(https://assets.williamedgarwright.com/images/canvas_bg2.png);
+  background-repeat: no-repeat;
+  z-index: -9999;
 }
 
-body::before {
-  display: block;
-  content: "";
-  position: absolute;
-  z-index: -9999;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-image: url(../images/canvas_bg2.png);
-  background-repeat: no-repeat;
-  background-size: 100%;
+/* General container */
+.container {
+  padding-left: 1.4rem;
+  padding-right: 1.4rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Splatter backgrounds */
 
 .splatterBackground {
   position: relative;
-  background-color: transparent;
-}
-
-.splatterBackground::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: -1;
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  background-image: url(../images/paint-strokes-blue.png);
+  background-image: url(https://assets.williamedgarwright.com/images/paint-strokes-blue.png);
+  z-index: -100;
 }
 
 /* Nav Bar */
@@ -58,11 +46,18 @@ header {
   z-index: 9999;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
   flex-wrap: nowrap;
 }
 
-header > nav {
+.navContainer {
+  display: flex;
+  justify-content: space-around;
+  height: 100%;
+  align-items: center;
+  width: 100%;
+}
+
+header > nav > .navMenu {
   display: flex;
   justify-content: center;
   margin: 0 2rem;
@@ -70,18 +65,56 @@ header > nav {
   align-items: center;
 }
 
-header > nav > a {
+header > nav > .navMenu > a {
   padding: 2rem;
   text-decoration: none;
   color: #353535;
   font-weight: 700;
   text-transform: uppercase;
-  font-size: 2rem;
+  font-size: clamp(1rem, 0.8286rem + 0.8571vw, 1.6rem);
   font-family: "Lato", sans-serif;
+}
+
+/* Nav opened */
+
+#navbar.opened .navMenu {
+  background-color: rgb(254, 254, 254);
+  opacity: 1;
+  visibility: visible;
+  padding: 1em;
+  max-height: none;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  flex-wrap: wrap;
+  height: auto;
+}
+
+.navbarToggle:focus .iconBar,
+.navbarToggle:hover .iconBar {
+  background-color: rgb(78, 132, 177);
+}
+
+#navbar.opened .navbarToggle .iconBar:first-child,
+#navbar.opened .navbarToggle .iconBar:last-child {
+  position: absolute;
+  margin: 0;
+  width: 30px;
+}
+
+#navbar.opened .navbarToggle .iconBar:first-child {
+  transform: rotate(45deg);
+}
+
+#navbar.opened .navbarToggle .iconBar:nth-child(2) {
+  opacity: 0;
+}
+
+#navbar.opened .navbarToggle .iconBar:last-child {
+  transform: rotate(-45deg);
 }
 
 .watercolorImage {
   position: relative;
+  text-align: center;
 }
 
 /* Pseudo-select allows animation w/o affecting text */
@@ -116,45 +149,25 @@ header > nav > a {
 }
 
 .watercolorImage.img-1::before {
-  background-image: url(../images/watercolour-4116932.png);
+  background-image: url(https://assets.williamedgarwright.com/images/watercolour-4116932.png);
 }
 
 .watercolorImage.img-2::before {
-  background-image: url(../images/splatt2.png);
+  background-image: url(https://assets.williamedgarwright.com/images/splatt2.png);
   animation-delay: var(--animation-delay);
 }
 
 .watercolorImage.img-3::before {
-  background-image: url(../images/watercolor-4629348.png);
+  background-image: url(https://assets.williamedgarwright.com/images/watercolor-4629348.png);
   animation-delay: var(--animation-delay2);
 }
 
 .watercolorImage.img-4::before {
-  background-image: url(../images/watercolour-4116889.png);
+  background-image: url(https://assets.williamedgarwright.com/images/watercolour-4116889.png);
   animation-delay: var(--animation-delay3);
 }
 
-.stuck {
-  background-color: #fefefe;
-  box-shadow: 0 7px 4px -3px rgba(0, 0, 0, 0.25);
-}
-
-/* Hamburger */
-.menu {
-  padding: 2rem;
-  display: none;
-}
-
 /* Bleeding animation */
-
-@-webkit-keyframes bleed {
-  0% {
-    opacity: 0%;
-  }
-  100% {
-    opacity: 100%;
-  }
-}
 
 @keyframes bleed {
   0% {
@@ -165,23 +178,47 @@ header > nav > a {
   }
 }
 
+.stuck {
+  background-color: #fefefe;
+  box-shadow: 0 7px 4px -3px rgba(0, 0, 0, 0.25);
+}
+
+/* Hamburger */
+.navbarToggle {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  display: none;
+}
+
+.iconBar {
+  display: block;
+  width: 25px;
+  height: 4px;
+  margin: 2px;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out,
+    opacity 0.2s ease-in-out;
+  background-color: rgb(44, 43, 43);
+}
+
+/* .nav {
+  transition: opacity 0.2s ease-in-out,
+  vsibility  0.2s ease-in-out
+} */
+
 /* Hero Text */
 
 .heroText {
-  /* background-image: url(../images/usgs-epmiRmGAyv8-unsplash.jpg);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent; */
   text-align: center;
   color: #363535;
   font-family: "Cormorant Garamond", serif;
-  font-size: 1.8rem;
+  font-size: clamp(1rem, 0.7714rem + 1.1429vw, 1.8rem);
   font-style: normal;
-  /*     margin-top: 5vh;
-    margin-bottom: 20vh; */
   align-items: center;
   display: flex;
   position: relative;
@@ -192,8 +229,8 @@ header > nav > a {
   display: block;
   position: absolute;
   z-index: -1;
-  background-image: url(../images/blue_wc_line_splash.png);
-  background-size: contain;
+  background-image: url(https://assets.williamedgarwright.com/images/blue_wc_line_splash.png);
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   top: 0;
@@ -207,6 +244,13 @@ header > nav > a {
   line-height: 90%;
 }
 
+/* Main */
+
+.mainContent {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
 /* Slideshow Container */
 
 #bookCoverShow {
@@ -305,7 +349,7 @@ header > nav > a {
   position: absolute;
   content: "";
   display: block;
-  background-image: url(../images/Color-Splash-8.png);
+  background-image: url(https://assets.williamedgarwright.com/images/Color-Splash-8.png);
   background-repeat: no-repeat;
   background-size: cover;
   top: 0;
@@ -339,7 +383,7 @@ header > nav > a {
   padding: 0;
   border: 0;
   position: relative;
-  z-index: 1000;
+  z-index: 100;
 }
 
 .bookCard {
@@ -355,7 +399,7 @@ header > nav > a {
   height: 100%;
   display: flex;
   perspective: 75rem;
-  background-image: url(../images/canvas_bg2.png);
+  background-image: url(https://assets.williamedgarwright.com/images/canvas_bg2.png);
 }
 
 .bookPage {
@@ -397,7 +441,7 @@ header > nav > a {
 
 .bookTitle {
   font-family: "Tulpen One", sans-serif;
-  font-size: 3em;
+  font-size: clamp(0.75rem, 0.1071rem + 3.2143vw, 3rem);
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.0625em;
@@ -407,7 +451,7 @@ header > nav > a {
 
 .bookAuthor {
   font-family: "Cormorant Garamond", serif;
-  font-size: 1.2em;
+  font-size: clamp(0.25rem, -0.25rem + 2.5vw, 2rem);
   font-weight: 100;
   text-transform: uppercase;
   color: #2a2935;
@@ -422,7 +466,7 @@ header > nav > a {
 .pageCredits {
   font-family: "Cormorant Garamond", serif;
   text-transform: uppercase;
-  font-size: 0.7em;
+  font-size: clamp(0.125rem, -0.1964rem + 1.6071vw, 1.25rem);
   margin-bottom: 5%;
   margin-top: 5%;
   letter-spacing: 0.0625em;
@@ -431,34 +475,23 @@ header > nav > a {
 .pageCopyright {
   position: relative;
   width: 100%;
-  bottom: -20%;
   font-family: "Cormorant Garamond", serif;
-  font-size: 0.7em;
+  font-size: clamp(0.25rem, -0.25rem + 2.5vw, 2rem);
   text-transform: uppercase;
 }
 
 .bookPage span {
   display: block;
-  font-size: 150%;
+  font-size: clamp(0.25rem, -0.25rem + 2.5vw, 2rem);
   letter-spacing: 0;
 }
 
 .bookBackground {
   position: relative;
-  background-color: transparent;
-}
-
-.bookBackground::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: -1;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url(../images/Color-Splash-12.png);
+  background-image: url(https://assets.williamedgarwright.com/images/Color-Splash-12.png);
+  z-index: -1;
 }
 
 /* About me dropcap */
@@ -495,32 +528,35 @@ header > nav > a {
   padding-left: 1em;
   padding-right: 1em;
   position: relative;
-}
-
-.bioPage::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
   z-index: -1;
-  background-image: url(../images/06.png);
+  background-image: url(https://assets.williamedgarwright.com/images/06.png);
   background-repeat: no-repeat;
   background-size: contain;
 }
 
 .biography {
   text-align: justify;
-  width: 100%;
   margin-left: auto;
   margin-right: auto;
-  max-width: 30%;
   padding-left: 1em;
   padding-right: 1em;
   color: #29292b;
-  /* background-image: url(https://i.ibb.co/j4zLqrs/canvas-bg2.png); */
-  /* box-shadow: 0 10px 7px -5px rgba(0, 0, 0, 0.5); */
+  position: relative;
+}
+
+.biography::before {
+  content: "";
+  display: block;
+  position: absolute;
+  background-image: url(https://assets.williamedgarwright.com/images/canvas_bg2.png);
+  box-shadow: 0 10px 7px -5px rgba(0, 0, 0, 0.5);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -10;
+  opacity: 0.4;
+  border-radius: 5px;
 }
 
 .srOnly:not(:focus):not(:active) {
@@ -534,7 +570,7 @@ header > nav > a {
 }
 
 .authorDescription {
-  font-size: 1.2rem;
+  font-size: clamp(0.75rem, 0.6214rem + 0.6429vw, 1.2rem);
   font-family: "Libre Baskerville", serif;
 }
 
@@ -596,8 +632,8 @@ header > nav > a {
 /* Business card contact */
 
 .businessCard {
-  height: 36em;
-  width: 28em;
+  height: 64.938vh;
+  width: 50%;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -605,6 +641,7 @@ header > nav > a {
   overflow: hidden;
   box-shadow: 15px 15px 27px #e1e1e3, -15px -15px 27px #ffffff;
   background-color: #f5f3ea;
+  justify-content: space-between;
 }
 
 .cardHolder {
@@ -618,9 +655,9 @@ header > nav > a {
 }
 
 .cardDescription {
-  height: 24em;
-  width: 28em;
-  position: absolute;
+  height: auto;
+  width: 100%;
+  position: relative;
   bottom: 0em;
   padding: 0.5em 1em;
   text-align: center;
@@ -630,34 +667,40 @@ header > nav > a {
 .cardDescription p {
   white-space: pre-line;
   overflow-wrap: break-word;
+  font-size: clamp(0.25rem, -0.0214rem + 1.3571vw, 1.2rem);
 }
 
 .cardTitle {
   margin: 0;
-  font-size: 1.4em;
+  font-size: clamp(0.5rem, 0.2429rem + 1.2857vw, 1.4rem);
   font-weight: 700;
 }
 
 .cardImage {
-  height: 6em;
-  width: 28em;
+  height: 10.823vh;
+  width: 100%;
   padding: 1em 2em;
-  position: Absolute;
+  position: relative;
   top: 0px;
-  background-image: url(../images/watercolour-1578077.jpg);
+  background-image: url(https://assets.williamedgarwright.com/images/watercolour-1578077.jpg);
   background-size: cover;
   background-position: 0% 30%;
   background-repeat: no-repeat;
 }
 
 .cardSlot {
-  width: 56em;
-  height: 36em;
-  float: right;
-  display: block;
+  width: 35.234%;
+  height: auto;
 }
 
 .rightCard {
   display: flex;
   justify-content: right;
+}
+
+.biographyContainer {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
 }

@@ -6,48 +6,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
   <title>William Edgar Wright</title>
   <%- include('./partials/styles.html') %>
-  <script src="/assets/scripts/main.js" defer></script>
-  <script src="/assets/scripts/bannerShow.js" defer></script>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond&display=swap" rel="stylesheet">
-  <%- include('./partials/favicon.html') %>
+    <%- include('./partials/scripts.html') %>
+      <script src="https://assets.williamedgarwright.com/scripts/bannerShow.js" defer></script>
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+      <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond&display=swap" rel="stylesheet">
+      <%- include('./partials/favicon.html') %>
 </head>
 
 <body>
 
   <%- include('./partials/navbar.html') %>
-  <div class="splatterBackground">
-    <main>
-      <!-- slide show container-->
-      <div id="bookCoverShow">
-        <!-- full width images and caption text-->
-        <img class="bookCoverSlide showAnchor showSlide" src="/assets/images/stockvault-blue-texture199698.jpg"
-          alt="a period in" />
+    <div class="splatterBackground">
+      <main>
+        <div class="mainContent container">
+          <!-- slide show container-->
+          <div class="slideshowContainer container">
+            <div id="bookCoverShow">
+              <!-- full width images and caption text-->
+              <img class="bookCoverSlide showAnchor showSlide"
+                src="https://assets.williamedgarwright.com/images/stockvault-blue-texture199698.jpg"
+                alt="a period in" />
 
-        <img class="bookCoverSlide bc-img largerCover" src="/assets/images/IMG_0126.JPG" alt="a period in" />
+              <img class="bookCoverSlide bc-img largerCover"
+                src="https://assets.williamedgarwright.com/images/IMG_0126.JPG" alt="a period in" />
 
-        <img class="bookCoverSlide bc-img" src="/assets/images/stockvault-metal-background133011.jpg"
-          alt="a period in" />
-
-
-      </div>
-      <!-- Dots/Circles -->
-      <div class="dotContainer">
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
-      </div>
-
-      <div id="instafeed">
-        <% for (let key in data) { %>
-          <a href="<%= data[key].permalink %>"><img title="<%= data[key].caption %>" alt="<%= data[key].caption %>"
-              src="<%= data[key].newImagePath %>" data-id="<%= data[key].id %> " /></a>
-          <% } %>
-      </div>
+              <img class="bookCoverSlide bc-img"
+                src="https://assets.williamedgarwright.com/images/stockvault-metal-background133011.jpg"
+                alt="a period in" />
 
 
-    </main>
-  </div>
+            </div>
+            <!-- Dots/Circles -->
+            <div class="dotContainer">
+              <span class="dot" onclick="currentSlide(1)"></span>
+              <span class="dot" onclick="currentSlide(2)"></span>
+              <span class="dot" onclick="currentSlide(3)"></span>
+            </div>
+          </div>
+
+          <div id="instafeed">
+            <% for (let key in data) { %>
+              <a href="<%= data[key].permalink %>" class="col-4 col-ig"><img title="<%= data[key].caption %>"
+                  alt="<%= data[key].caption %>"
+                  src="https://assets.williamedgarwright.com/<%= data[key].newImagePath %>"
+                  data-id="<%= data[key].id %> " /></a>
+              <% } %>
+          </div>
+        </div>
+
+      </main>
+    </div>
 </body>
 
 </html>

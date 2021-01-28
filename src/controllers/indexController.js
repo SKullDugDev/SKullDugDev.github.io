@@ -3,10 +3,13 @@ const indexModel = require("../models/IndexModel");
 
 exports.renderHomePage = async (req, res) => {
   const instafeedResults = await req.app.get("instafeedResults");
-  const newImageInfo = await indexModel.populateInstaDiv(
+  if (instafeedResults === []) {
+    res.render("index_bare.html");
+  }
+  const infoPacket = await indexModel.populateInstaDiv(
     req,
     res,
     instafeedResults
   );
-  res.render("index.html", { data: newImageInfo });
+  res.render("index.html", { data: infoPacket });
 };

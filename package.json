@@ -1,16 +1,17 @@
 {
-  "name": "wrightapp",
+  "name": "wrightsite",
   "version": "1.0.0",
   "description": "",
-  "main": "wrightapp.js",
+  "main": "wrightsite.js",
   "scripts": {
-    "start": "node -r dotenv/config src/server",
-    "dev": "nodemon -r dotenv/config src/server",
-    "feed": "node -r dotenv/config src/models/instafeed"
+    "start": "node server",
+    "dev": "nodemon server",
+    "feed": "node /models/instafeed"
   },
   "author": "SKDev",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.829.0",
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "cron": "^1.8.2",
@@ -19,6 +20,6 @@
   },
   "devDependencies": {
     "dotenv": "^8.2.0",
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.7"
   }
 }

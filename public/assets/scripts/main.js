@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 // Navigation Bar
 
@@ -9,3 +9,29 @@ const observer = new IntersectionObserver(
 );
 
 observer.observe(header);
+
+// Hamburger logic
+
+const navbar = document.getElementById("navbar");
+const navbarToggle = navbar.querySelector(".navbarToggle");
+const navMenu = navbar.querySelector(".navMenu")
+
+function openMobileNavbar() {
+  navbar.classList.add("opened");
+  navbarToggle.setAttribute("aria-label", "Close navigation menu.");
+}
+
+function closeMobileNavbar() {
+  navbar.classList.remove("opened");
+  navbarToggle.setAttribute("aria-label", "Open navigation menu.");
+}
+
+navbarToggle.addEventListener("click", () => {
+  if (navbar.classList.contains("opened")) {
+    closeMobileNavbar();
+  } else {
+    openMobileNavbar();
+  }
+});
+
+navMenu.addEventListener("click", closeMobileNavbar)

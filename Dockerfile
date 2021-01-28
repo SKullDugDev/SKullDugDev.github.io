@@ -1,15 +1,15 @@
-FROM node:latest
+FROM node:latest AS Backend
 
-RUN mkdir /wrightapp/src
+RUN mkdir -p /wrightsite/src
 
-WORKDIR /wrightapp/src
+WORKDIR /wrightsite/src
 
-COPY package*.json .
+COPY package*.json ./
 
 RUN npm install
 
-COPY . /src
+EXPOSE 8080
 
-EXPOSE 5000
+COPY ./src .
 
 CMD ["npm", "start"]

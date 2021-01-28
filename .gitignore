@@ -4,4 +4,6 @@ node_modules
 tokens.json
 scratch
 \igresults
-docker-compose.yml
+\old
+docker-compose.debug.yml
+\images
